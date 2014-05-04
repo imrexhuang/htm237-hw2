@@ -1,32 +1,83 @@
 @charset "UTF-8";
-
-/* ======================================== */
-/* functional styles required by Javascript */
-/* ======================================== */
-.is-dragging ul.delete, .is-dragging ul.done {
-  opacity: 1;
+/* ========= */
+/* CSS Reset */
+/* ========= */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
 }
 
-ul.connected li.is-editing {
-  background: #999999;
-  background-image: -webkit-linear-gradient(#999999, #8c8c8c);
-  background-image: linear-gradient(#999999, #8c8c8c);
+body {
+  line-height: 1;
 }
 
-ul.connected li input {
-  display: none;
+ol, ul {
+  list-style: none;
 }
-ul.connected li.is-editing input {
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
   display: block;
 }
-ul.connected li.is-editing span {
-  display: none;
+
+body {
+  font-size: 175%;
+  line-height: 2.5em;
 }
-ul.connected li.is-done {
-  text-decoration: line-through;
-  color: #666666;
-  background-image: -webkit-linear-gradient(#333333, #262626);
-  background-image: linear-gradient(#333333, #262626);
+
+html > body {
+  font-size: 28px;
+}
+
+/* ============== */
+/* general styles */
+/* ============== */
+html {
+  height: 100%;
+  background: #4f4f4f;
+}
+
+body, input {
+  color: white;
+  font-family: "文泉驛微米黑", "微軟正黑體", sans-serif;
 }
 
 #placeholder {
@@ -150,4 +201,65 @@ ul.main li.ui-sortable-helper {
   box-shadow: inset 0 1px rgba(255, 255, 255, 0.5), inset 0 -1px rgba(0, 0, 0, 0.5), 0 4px 7px rgba(0, 0, 0, 0.5);
   background-image: -webkit-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6));
+}
+
+#add {
+  position: fixed;
+  width: 100%;
+  height: 30px;
+  padding: 0;
+  /* styles */
+  font-weight: bold;
+  background: #666666;
+  border: 0;
+  color: white;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.9);
+}
+
+/* ======================================== */
+/* functional styles required by Javascript */
+/* ======================================== */
+.dragging ul.delete, .dragging ul.done {
+  opacity: 1;
+}
+
+.deleting ul.delete {
+  left: 0;
+}
+
+.doing ul.done {
+  right: 0;
+}
+
+ul.main li input {
+  display: none;
+  width: 100%;
+  height: 70px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  line-height: 2.5em;
+  font-size: 1em;
+  line-height: 2.5em;
+}
+ul.main li input:focus {
+  /* remove focus outline */
+  outline: 0;
+}
+ul.main li.editing {
+  background: #999999;
+  background-image: -webkit-linear-gradient(#999999, #8c8c8c);
+  background-image: linear-gradient(#999999, #8c8c8c);
+}
+ul.main li.editing input {
+  display: block;
+}
+ul.main li.editing .text {
+  display: none;
+}
+ul.main li.done {
+  text-decoration: line-through;
+  color: #666666;
+  background-image: -webkit-linear-gradient(#333333, #262626);
+  background-image: linear-gradient(#333333, #262626);
 }
