@@ -33,8 +33,12 @@ mainUl.on('keyup', 'input', function(e){
   }
 });
 
+
+
 // 從 localStorage 讀出整個表，放進 ul
 load();
+
+
 
 // 把整個項目表存進 localStorage
 //
@@ -46,12 +50,29 @@ function save(){
   // 把 <span> 裡的項目（一個物件：{text:文字, isDone:是否被完成}）放進陣列裡
   mainUl.find('li').each(function(){
     // TODO: 修改此處，把「已完成」與否一併存入。
-    arr.push($(this).find('span').text());
+
+      
+        var doneFlag;
+        if( $(this).attr('class') == "is-done"){
+           doneFlag = "true";
+        }else{
+           doneFlag = "false";
+        }
+
+
+        var item = {
+        done: doneFlag,
+        txt: $(this).find('span').text()
+       };
+
+      arr.push(item);
+      
+    //arr.push($(this).find('span').text());
   });
 
   // 把陣列轉成 JSON 字串後存進 localStorage
   localStorage.todoItems = JSON.stringify(arr);
-}
+}  // END function save()
 
 // 從 localStorage 讀出整個表，放進 <ul>
 //
@@ -64,11 +85,36 @@ function load(){
 
   // 對於陣列裡的每一個項目，插入回 mainUl 裡。
   for(i=0; i<arr.length; i+=1){
+
     li = $(tmpl);
-    // TODO: 修改此處，讀取「已完成」與否，來決定是否要加上 `is-done`。
-    li.appendTo(mainUl).find('span').text(arr[i]);
+    if(arr[i].done == "true" ){
+      li.appendTo(mainUl).find('span').text(arr[i].txt); 
+      li.addClass('is-done');
+    }else{
+      li.appendTo(mainUl).find('span').text(arr[i].txt); 
+    }
+
+    
+    
+
+/*
+   var object = arr[i];
+
+   for (var field in object) {
+        
+        if(field == "txt"){
+            li = $(tmpl);
+           // TODO: 修改此處，讀取「已完成」與否，來決定是否要加上 `is-done`。
+           li.appendTo(mainUl).find('span').text(object[field]);            
+        }
+  
+    }
+    */
+       
+
   }
-}
+} //END function load()
+
 
 // 課堂練習一
 // 讓按鈕可以拖來拖去
@@ -83,7 +129,7 @@ mainUl.on('sortstart', function(){
   placeholder.addClass('is-dragging');
 }).on('sortstop', function(){
   placeholder.removeClass('is-dragging');
-  save();
+  save();  //存放dragging後的新順序
 });
 
 // 課堂練習三
@@ -93,7 +139,25 @@ deleteUl.on('sortreceive', function(e, ui){
   save();
 });
 
+
 // [TODO] 回家作業
 // 完成項目
+
+doneUl.on('sortreceive', function(e, ui){
+  /* SRC
+  li.appendTo(mainUl).find('span').text('rexhuang3');   
+  li.addClass('is-done');
+  ui.item.remove();
+  */
+
+
+  li = $(tmpl);
+  li.appendTo(mainUl).find('span').text(ui.item.find('span').text());
+  li.addClass('is-done');
+  ui.item.remove();
+
+
+
+});
 
 }());
